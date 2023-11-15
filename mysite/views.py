@@ -19,6 +19,18 @@ def showpost(request, slug):
     except:
         return redirect("/")
     #select * from post where slug=%slug
+    
+import random
+def about(request,num=-1):
+    quotes = ['今日事，今日畢',
+                '要怎麼收穫，先那麼哉',
+                '知識就是力量',
+                '一個人的個性就是他的命運']
+    if num == -1 or num > 4:
+        quote = random.choice(quotes)
+    else:
+        quote = quotes[num]
+    return render(request, 'about.html',locals())
 
 '''
 def homepage(request):

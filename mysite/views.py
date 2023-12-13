@@ -8,7 +8,7 @@ def homepage(request):
     posts = Post.objects.all()
     now = datetime.now()
     hour = now.timetuple().tm_hour
-    print(f'hour = {hour}')
+    years = range(1960,2024)
     return render(request, 'index.html', locals())
     
 def show_all_posts(request):
@@ -70,9 +70,12 @@ def new_post(request):
     if request.method == 'GET':
         return render(request, 'myform_1.html', locals())
     elif request.method == 'POST':
-        username = request.POST['user_id']
-        password = request.POST['password']
-        print(f'post-username:{username}, password:{password}')
+        title = request.POST['title']
+        slug = request.POST['slug']
+        content = request.POST['content']
+        category = request.POST.getlist('category')
+        post = Post(title=title, slug=slug, body=content, category=category)
+        post.save()
         return render(request, 'myform_1.html', locals())
     '''
     try:
